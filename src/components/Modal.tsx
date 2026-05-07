@@ -51,7 +51,7 @@ export default function Modal({ open, onClose, title, eyebrow, width = 520, chil
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-fade-in">
+    <div className="modal-shell fixed inset-0 z-50 flex items-center justify-center px-4 animate-fade-in">
       <div
         className="absolute inset-0"
         style={{ background: 'rgba(12, 27, 44, 0.35)', backdropFilter: 'blur(2px)' }}
@@ -59,7 +59,7 @@ export default function Modal({ open, onClose, title, eyebrow, width = 520, chil
       />
       <div
         ref={cardRef}
-        className="g relative w-full max-h-[92vh] overflow-y-auto animate-scale-in"
+        className="g modal-card relative w-full max-h-[92vh] overflow-y-auto animate-scale-in"
         style={{ padding: 28, maxWidth: width }}
         role="dialog"
         aria-modal="true"

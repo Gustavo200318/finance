@@ -154,7 +154,7 @@ export default function DashboardPage({ userName, onNewTransaction, onNavigate, 
   return (
     <div className="content flex flex-col gap-4" style={{ padding: '26px 28px' }}>
       {/* HERO */}
-      <section className="flex items-end justify-between gap-4 flex-wrap">
+      <section className="hero-flex flex items-end justify-between gap-4 flex-wrap">
         <div>
           <div className="hero-eyebrow">{monthLabelPt(year, month)} · {Math.max(0, daysLeftInMonth(year, month))} dias restantes</div>
           <h1 className="hero-h">

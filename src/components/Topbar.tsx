@@ -40,17 +40,17 @@ export default function Topbar({ section, page, period, onNewTransaction, onImpo
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <button className="tb-pill" onClick={onImport}>
+        <button className="tb-pill desktop-only" onClick={onImport}>
           <Ti name="upload" />
           Importar CSV
         </button>
-        <button className="tb-pill" title="Mês corrente do app (use os filtros nas páginas para mudar período)">
+        <button className="tb-pill desktop-only" title="Mês corrente do app (use os filtros nas páginas para mudar período)">
           <Ti name="calendar" />
           {periodLabel}
         </button>
-        <button className="tb-btn" onClick={onNewTransaction}>
+        <button className="tb-btn" onClick={onNewTransaction} aria-label="Nova transação">
           <Ti name="plus" />
-          Nova transação
+          <span className="tb-btn-label">Nova transação</span>
         </button>
       </div>
     </header>

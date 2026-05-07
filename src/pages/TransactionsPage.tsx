@@ -274,7 +274,7 @@ export default function TransactionsPage({ onNewTransaction, refreshKey = 0 }: P
       ) : (
         <article className="g" style={{ padding: '4px 20px 16px' }}>
           <div
-            className="grid items-center gap-3 g-label"
+            className="tx-row tx-row-header grid items-center gap-3 g-label"
             style={{
               gridTemplateColumns: '36px 60px 1fr 130px 100px 140px',
               paddingTop: 14,
@@ -284,10 +284,10 @@ export default function TransactionsPage({ onNewTransaction, refreshKey = 0 }: P
             }}
           >
             <span></span>
-            <span>Dia</span>
+            <span className="tx-col-day">Dia</span>
             <span>Lançamento</span>
-            <span>Tipo</span>
-            <span>Status</span>
+            <span className="tx-col-type">Tipo</span>
+            <span className="tx-col-status">Status</span>
             <span className="text-right">Valor</span>
           </div>
           <ul>
@@ -300,7 +300,7 @@ export default function TransactionsPage({ onNewTransaction, refreshKey = 0 }: P
                 <li
                   key={t.id}
                   onClick={() => setEditing(t)}
-                  className="grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
+                  className="tx-row grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
                   style={{
                     gridTemplateColumns: '36px 60px 1fr 130px 100px 140px',
                     padding: '12px 0',
@@ -311,17 +311,17 @@ export default function TransactionsPage({ onNewTransaction, refreshKey = 0 }: P
                   <div className={`tx-ico ${ico.tone}`} style={{ width: 32, height: 32, fontSize: 14 }}>
                     <Ti name={ico.name} />
                   </div>
-                  <span className="font-serif text-base text-text-2 num-mono">{day}</span>
+                  <span className="tx-col-day font-serif text-base text-text-2 num-mono">{day}</span>
                   <div className="min-w-0">
                     <div className="tx-name">{t.description}</div>
                     <div className="tx-cat">
                       {t.category?.name ?? '—'} · {t.account?.name ?? '—'}
                     </div>
                   </div>
-                  <div>
+                  <div className="tx-col-type">
                     <span className={typeChip[t.type]}>{typeLabel[t.type]}</span>
                   </div>
-                  <div>{sChip ? <span className={sChip.cls}>{sChip.label}</span> : <span className="text-text-4 text-[11px]">Pago</span>}</div>
+                  <div className="tx-col-status">{sChip ? <span className={sChip.cls}>{sChip.label}</span> : <span className="text-text-4 text-[11px]">Pago</span>}</div>
                   <div className={`text-right num-mono text-[12.5px] ${positive ? 'text-green' : 'text-red'}`}>
                     {positive ? '+' : '−'} {fmt(Math.abs(Number(t.amount)))}
                   </div>
@@ -392,7 +392,7 @@ function UpcomingMonthCard({ monthKey, items, onPick, onQuickPay, paying }: Upco
             <li
               key={t.id}
               onClick={() => onPick(t)}
-              className="grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
+              className="tx-row grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
               style={{
                 gridTemplateColumns: '36px 60px 1fr 110px 100px 100px',
                 padding: '10px 0',
@@ -402,7 +402,7 @@ function UpcomingMonthCard({ monthKey, items, onPick, onQuickPay, paying }: Upco
               <div className={`tx-ico ${ico.tone}`} style={{ width: 32, height: 32, fontSize: 14 }}>
                 <Ti name={ico.name} />
               </div>
-              <span className="font-serif text-base text-text-2 num-mono">{day}</span>
+              <span className="tx-col-day font-serif text-base text-text-2 num-mono">{day}</span>
               <div className="min-w-0">
                 <div className="tx-name">{t.description}</div>
                 <div className="tx-cat">
@@ -412,14 +412,14 @@ function UpcomingMonthCard({ monthKey, items, onPick, onQuickPay, paying }: Upco
               <div className={`text-right num-mono text-[12.5px] ${positive ? 'text-green' : 'text-red'}`}>
                 {positive ? '+' : '−'} {fmt(Math.abs(Number(t.amount)))}
               </div>
-              <div>
+              <div className="tx-col-type">
                 {overdue ? (
                   <span className="g-tag neg">Atrasado</span>
                 ) : (
                   <span className="g-tag info">Planejado</span>
                 )}
               </div>
-              <div className="text-right">
+              <div className="tx-col-status text-right">
                 <button
                   onClick={(e) => onQuickPay(e, t)}
                   disabled={paying === t.id}

@@ -66,6 +66,7 @@ export default function Sidebar({ currentPage, onPageChange, userName }: Sidebar
 
   return (
     <>
+      <div className="sb-backdrop" onClick={closeMobile} aria-hidden="true" />
       <aside
         data-role="sidebar"
         className="flex flex-col flex-shrink-0 h-full"

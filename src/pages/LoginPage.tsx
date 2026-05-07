@@ -70,7 +70,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-bg flex items-center justify-center p-8">
       <div
-        className="grid w-full max-w-[1080px] overflow-hidden"
+        className="login-grid grid w-full max-w-[1080px] overflow-hidden"
         style={{
           gridTemplateColumns: '1.1fr 1fr',
           background: 'var(--bg)',
