@@ -38,7 +38,7 @@ interface QueryState<T> {
  * - Stale-while-revalidate (mostra cache + revalida em bg)
  * - GC automático após 5min sem uso
  */
-function useAsync<T>(fn: () => Promise<T>, deps: any[]): QueryState<T> {
+function useAsync<T>(name: string, fn: () => Promise<T>, deps: any[]): QueryState<T> {
   // Timeout failsafe: query nunca demora mais de 8s
   const fnWithTimeout = () => {
     let timedOut = false;
@@ -52,7 +52,7 @@ function useAsync<T>(fn: () => Promise<T>, deps: any[]): QueryState<T> {
   };
 
   const q = useQuery<T, Error>({
-    queryKey: ['async', ...deps],
+    queryKey: ['async', name, ...deps],
     queryFn: fnWithTimeout,
   });
 
@@ -108,7 +108,7 @@ export function useTransactions(opts: UseTransactionsOpts = {}) {
   const { limit, type, from, to, accountId, status, excludeStatus, ascending } = opts;
   const statusKey = Array.isArray(status) ? status.join(',') : status;
   const excludeKey = Array.isArray(excludeStatus) ? excludeStatus.join(',') : excludeStatus;
-  return useAsync<Transaction[]>(async () => {
+  return useAsync<Transaction[]>('transactions', async () => {
     let q = supabase
       .from('transactions')
       .select(TX_SELECT)
@@ -201,7 +201,7 @@ export async function deleteTransaction(id: string) {
 
 // ─── Accounts ───────────────────────────────────────────────────────────
 export function useAccounts() {
-  return useAsync<Account[]>(async () => {
+  return useAsync<Account[]>('accounts', async () => {
     const { data, error } = await supabase
       .from('accounts')
       .select('*')
@@ -247,7 +247,7 @@ export async function deleteAccount(id: string) {
 
 // ─── Categories ─────────────────────────────────────────────────────────
 export function useCategories() {
-  return useAsync<Category[]>(async () => {
+  return useAsync<Category[]>('categories', async () => {
     const { data, error } = await supabase.from('categories').select('*').order('name', { ascending: true });
     if (error) throw error;
     return (data ?? []) as Category[];
@@ -295,7 +295,7 @@ export async function deleteCategory(id: string) {
 
 // ─── Debts ──────────────────────────────────────────────────────────────
 export function useDebts() {
-  return useAsync<Debt[]>(async () => {
+  return useAsync<Debt[]>('debts', async () => {
     const { data, error } = await supabase
       .from('debts')
       .select('*')
@@ -372,7 +372,7 @@ export async function createDebtPayment(userId: string, input: DebtPaymentInput)
 
 // ─── Budgets ────────────────────────────────────────────────────────────
 export function useBudgets(year: number, month: number) {
-  return useAsync<Budget[]>(async () => {
+  return useAsync<Budget[]>('budgets', async () => {
     const { data, error } = await supabase
       .from('budgets')
       .select('*, category:categories(id,name,icon,color)')
@@ -414,7 +414,7 @@ export async function deleteBudget(id: string) {
 
 // ─── Goals ──────────────────────────────────────────────────────────────
 export function useGoals() {
-  return useAsync<Goal[]>(async () => {
+  return useAsync<Goal[]>('goals', async () => {
     const { data, error } = await supabase
       .from('goals')
       .select('*')
@@ -462,7 +462,7 @@ export async function deleteGoal(id: string) {
 
 // ─── Insights ───────────────────────────────────────────────────────────
 export function useInsights() {
-  return useAsync<Insight[]>(async () => {
+  return useAsync<Insight[]>('insights', async () => {
     const { data, error } = await supabase
       .from('financial_insights')
       .select('*')
@@ -502,7 +502,7 @@ const REC_SELECT =
 
 export function useRecurring(opts: { activeOnly?: boolean } = {}) {
   const { activeOnly } = opts;
-  return useAsync<RecurringTransaction[]>(async () => {
+  return useAsync<RecurringTransaction[]>('recurring', async () => {
     let q = supabase
       .from('recurring_transactions')
       .select(REC_SELECT)
@@ -716,7 +716,7 @@ export async function materializeAllRecurring(userId: string, monthsAhead = 6): 
 
 // ─── DRE / Monthly statement ────────────────────────────────────────────
 export function useMonthlyStatement(year: number, month: number) {
-  return useAsync<MonthlyStatement | null>(async () => {
+  return useAsync<MonthlyStatement | null>('monthly_statement', async () => {
     const { data, error } = await supabase
       .from('monthly_financial_statement')
       .select('*')
