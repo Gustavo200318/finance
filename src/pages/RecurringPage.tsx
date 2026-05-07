@@ -221,7 +221,7 @@ export default function RecurringPage({ refreshKey = 0, onSaved }: Props) {
       ) : (
         <article className="g" style={{ padding: '4px 20px 16px' }}>
           <div
-            className="grid items-center gap-3 g-label"
+            className="row-compact row-compact-header grid items-center gap-3 g-label"
             style={{
               gridTemplateColumns: '36px 1fr 110px 110px 130px 110px 50px',
               paddingTop: 14,
@@ -245,7 +245,7 @@ export default function RecurringPage({ refreshKey = 0, onSaved }: Props) {
                 <li
                   key={r.id}
                   onClick={() => setEditing(r)}
-                  className="grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
+                  className="row-compact grid items-center gap-3 hover:bg-bg/60 transition-colors cursor-pointer"
                   style={{
                     gridTemplateColumns: '36px 1fr 110px 110px 130px 110px 50px',
                     padding: '12px 0',
@@ -262,17 +262,17 @@ export default function RecurringPage({ refreshKey = 0, onSaved }: Props) {
                       {r.category?.name ?? 'Sem categoria'} · {r.account?.name ?? 'Sem conta'}
                     </div>
                   </div>
-                  <div>
+                  <div className="col-secondary">
                     <span className={typeChip[r.type]}>{typeLabel[r.type]}</span>
                   </div>
-                  <div className="text-[11.5px] text-text-2">{describeFrequency(r)}</div>
-                  <div className="text-[11.5px] text-text-2">
+                  <div className="col-secondary text-[11.5px] text-text-2">{describeFrequency(r)}</div>
+                  <div className="col-secondary text-[11.5px] text-text-2">
                     {r.is_active ? nextLabel(r) : <span className="text-text-4">Inativa</span>}
                   </div>
                   <div className={`text-right num-mono text-[12.5px] ${positive ? 'text-green' : 'text-red'}`}>
                     {positive ? '+' : '−'} {fmt(Math.abs(Number(r.amount)))}
                   </div>
-                  <div className="text-right">
+                  <div className="col-secondary text-right">
                     <Ti name="chevron-right" size={14} className="text-text-4" />
                   </div>
                 </li>

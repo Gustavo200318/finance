@@ -98,7 +98,7 @@ export default function DebtsPage({ refreshKey = 0 }: Props) {
                 : 0;
               return (
                 <article key={d.id} className={`g ${t.card}`}>
-                  <div className="grid gap-5" style={{ gridTemplateColumns: '40px 1fr 200px 36px' }}>
+                  <div className="debt-row grid gap-5" style={{ gridTemplateColumns: '40px 1fr 200px 36px' }}>
                     <div className="font-serif text-[28px] text-text-4 num-mono leading-none mt-1">
                       {String(idx + 1).padStart(2, '0')}
                     </div>

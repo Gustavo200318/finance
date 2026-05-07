@@ -130,7 +130,7 @@ export default function BudgetPage({ refreshKey = 0 }: Props) {
 
           <article className="g" style={{ padding: '4px 20px 16px' }}>
             <div
-              className="grid items-center g-label"
+              className="row-compact row-compact-header grid items-center g-label"
               style={{
                 gridTemplateColumns: '36px 1fr 90px 1fr 160px 36px',
                 gap: 12,
@@ -153,7 +153,7 @@ export default function BudgetPage({ refreshKey = 0 }: Props) {
                 return (
                   <li
                     key={r.id}
-                    className="grid items-center hover:bg-bg/60 transition-colors"
+                    className="row-compact grid items-center hover:bg-bg/60 transition-colors"
                     style={{
                       gridTemplateColumns: '36px 1fr 90px 1fr 160px 36px',
                       gap: 12,
@@ -165,22 +165,24 @@ export default function BudgetPage({ refreshKey = 0 }: Props) {
                       <Ti name={r.icon} />
                     </div>
                     <span className="text-[12.5px] text-text-1 font-medium">{r.name}</span>
-                    <span>
+                    <span className="col-secondary">
                       <span className={s.tag}>{s.label}</span>
                     </span>
-                    <div className="bar">
+                    <div className="col-secondary bar">
                       <div className="bar-fill" style={{ width: `${Math.min(100, s.width)}%`, background: s.bar }} />
                     </div>
                     <div className="text-right text-[12px] num-mono">
                       <span className="text-text-1 font-medium">R$ {fmt(r.spent)}</span>
                       <span className="text-text-4"> / {fmt(r.plan)}</span>
                     </div>
-                    <RowActions
-                      actions={[
-                        { label: 'Editar', icon: 'pencil', onClick: () => setModal({ open: true, budget: r.budget }) },
-                        { label: 'Excluir', icon: 'trash', onClick: () => setModal({ open: true, budget: r.budget }), destructive: true },
-                      ]}
-                    />
+                    <div className="col-secondary">
+                      <RowActions
+                        actions={[
+                          { label: 'Editar', icon: 'pencil', onClick: () => setModal({ open: true, budget: r.budget }) },
+                          { label: 'Excluir', icon: 'trash', onClick: () => setModal({ open: true, budget: r.budget }), destructive: true },
+                        ]}
+                      />
+                    </div>
                   </li>
                 );
               })}

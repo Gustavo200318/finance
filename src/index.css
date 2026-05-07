@@ -372,6 +372,11 @@ code, .num-mono {
   .dash-kpis > article:first-child {
     grid-column: span 2;
   }
+
+  /* KPI grids 4-col → 2x2 */
+  .kpi-grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
 }
 
 /* ── Mobile (até 768px) ── */
@@ -439,7 +444,7 @@ code, .num-mono {
 
   /* TODOS os grids inline colapsam para 1 coluna por padrão.
      Casos específicos abaixo refinam isso. */
-  .content [style*="grid-template-columns"]:not(.tx-row):not(.dash-kpis) {
+  .content [style*="grid-template-columns"]:not(.tx-row):not(.dash-kpis):not(.row-compact):not(.debt-row):not(.onb-row):not(.row-compact-header) {
     grid-template-columns: 1fr !important;
   }
 
@@ -465,6 +470,61 @@ code, .num-mono {
   }
   .tx-row-header {
     display: none !important;
+  }
+
+  /* Linhas genéricas de "tabela" (Budget, Recurring, Analytics, Debts) */
+  .row-compact {
+    grid-template-columns: 32px 1fr auto !important;
+    gap: 10px !important;
+    padding: 10px 0 !important;
+  }
+  .row-compact > .col-secondary {
+    display: none !important;
+  }
+  .row-compact-header {
+    display: none !important;
+  }
+
+  /* Settings: layout 200px + 1fr → tabs no topo */
+  .settings-shell {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .settings-nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    border-right: none !important;
+    border-bottom: 0.5px solid var(--border-lt);
+  }
+  .settings-nav button {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Onboarding rows */
+  .onb-row {
+    grid-template-columns: 1fr auto !important;
+    gap: 8px !important;
+  }
+  .onb-row > .onb-col-secondary {
+    display: none !important;
+  }
+
+  /* Debt cards: stack content + saldo */
+  .debt-row {
+    grid-template-columns: 1fr 36px !important;
+    gap: 14px !important;
+  }
+  .debt-row > :first-child {
+    display: none !important;
+  }
+  .debt-row > :nth-child(3) {
+    grid-column: 1 / -1;
+    text-align: left !important;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--border-lt);
   }
 
   /* Topbar enxuto */

@@ -173,7 +173,7 @@ export default function AnalyticsPage({ refreshKey = 0 }: Props) {
       </article>
 
       {/* KPIs */}
-      <section className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+      <section className="kpi-grid-4 grid gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         <Kpi label="Receitas" value={totals.income} accent="#2ECC8A" loading={loading} />
         <Kpi label="Despesas" value={totals.expense} accent="#FF6B6B" loading={loading} negativeColor />
         <Kpi label="Dívidas pagas" value={totals.debt} accent="#FFA62B" loading={loading} negativeColor />
@@ -284,7 +284,7 @@ export default function AnalyticsPage({ refreshKey = 0 }: Props) {
               {categoryAgg.map((c, i) => (
                 <li
                   key={c.id}
-                  className="grid items-center gap-3 py-2"
+                  className="row-compact grid items-center gap-3 py-2"
                   style={{
                     gridTemplateColumns: '24px 1fr 80px 100px 110px',
                     borderTop: i === 0 ? 'none' : '0.5px solid var(--border-lt)',
@@ -297,9 +297,9 @@ export default function AnalyticsPage({ refreshKey = 0 }: Props) {
                     <span className="h-2 w-2 rounded-full" style={{ background: c.color }} />
                   </span>
                   <span className="text-[12.5px] text-text-1 truncate">{c.name}</span>
-                  <span className="text-[11px] text-text-4 num-mono">{c.count} lan.</span>
+                  <span className="col-secondary text-[11px] text-text-4 num-mono">{c.count} lan.</span>
                   <div
-                    className="h-1.5 rounded-full overflow-hidden"
+                    className="col-secondary h-1.5 rounded-full overflow-hidden"
                     style={{ background: 'var(--border-lt)' }}
                   >
                     <div

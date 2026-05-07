@@ -45,11 +45,11 @@ export default function SettingsPage({ refreshKey = 0 }: Props) {
       />
 
       <section
-        className="grid gap-4"
+        className="settings-shell grid gap-4"
         style={{ gridTemplateColumns: '200px 1fr' }}
       >
         {/* sidebar interna */}
-        <aside className="flex flex-col gap-1">
+        <aside className="settings-nav flex flex-col gap-1">
           {tabs.map((t) => {
             const active = tab === t.id;
             return (
