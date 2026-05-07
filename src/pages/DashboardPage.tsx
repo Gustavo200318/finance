@@ -680,7 +680,7 @@ function daysLeftInMonth(year: number, month: number) {
 
 
 function formatDate(d: string) {
-  const [y, m, dd] = d.split('-');
+  const [, m, dd] = d.split('-');
   const months = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   return `${dd} ${months[Number(m) - 1]}`;
 }
