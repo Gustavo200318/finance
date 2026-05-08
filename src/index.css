@@ -530,14 +530,10 @@ code, .num-mono {
   /* Topbar enxuto */
   header.flex.items-center.justify-between {
     padding: 12px 14px !important;
+    gap: 10px !important;
   }
-  .tb-bread {
-    font-size: 9px !important;
-    max-width: 50vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  /* Esconde a parte "SECTION /" do breadcrumb pra dar espaço pro botão */
+  .tb-bread { display: none !important; }
   .tb-pill {
     padding: 4px 9px !important;
     font-size: 10.5px !important;
@@ -549,6 +545,35 @@ code, .num-mono {
   .tb-btn .tb-btn-label {
     display: none;
   }
+
+  /* DRE: linhas grid-cols-12 ficam espremidas demais no mobile.
+     Reflui para "label / valor + % à direita" e flatten da indentação. */
+  .dre-row {
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas: 'label value' 'label pct' !important;
+    column-gap: 10px;
+    row-gap: 2px;
+  }
+  .dre-row > .col-span-7 {
+    grid-area: label;
+    grid-column: auto !important;
+    min-width: 0;
+  }
+  .dre-row > .col-span-3 {
+    grid-area: value;
+    grid-column: auto !important;
+    text-align: right !important;
+  }
+  .dre-row > .col-span-2 {
+    grid-area: pct;
+    grid-column: auto !important;
+    text-align: right !important;
+    font-size: 9.5px !important;
+    opacity: 0.75;
+  }
+  /* Achata indentação aninhada da DRE no mobile */
+  .dre-tree .ml-2 { margin-left: 4px !important; }
+  .dre-tree .ml-6 { margin-left: 12px !important; }
 
   /* Modais: edge-to-edge no mobile */
   .modal-shell {

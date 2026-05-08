@@ -310,7 +310,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
             </div>
           </header>
 
-          <div className="pt-2">
+          <div className="dre-tree pt-2">
             {dre.sections.map((section, idx) => {
               const open = !!openSections[section.id];
               const signedTotal = section.tone === 'income' ? section.total : -section.total;
@@ -322,7 +322,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
                   {/* Section header (clickable) */}
                   <button
                     onClick={() => toggleSection(section.id)}
-                    className="w-full grid grid-cols-12 items-center py-2.5 hover:bg-bg/40 transition-colors rounded-md"
+                    className="dre-row w-full grid grid-cols-12 items-center py-2.5 hover:bg-bg/40 transition-colors rounded-md"
                     style={{
                       borderTop: idx === 0 ? 'none' : '0.5px solid var(--border-lt)',
                       paddingLeft: 4,
@@ -375,7 +375,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
                             <div key={node.key} className="ml-2">
                               <button
                                 onClick={() => hasChildren && toggleCategory(node.key)}
-                                className={`w-full grid grid-cols-12 items-center py-1.5 rounded transition-colors ${
+                                className={`dre-row w-full grid grid-cols-12 items-center py-1.5 rounded transition-colors ${
                                   hasChildren ? 'hover:bg-bg/50 cursor-pointer' : 'cursor-default'
                                 }`}
                                 style={{ paddingLeft: 12 }}
@@ -433,7 +433,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
                                     return (
                                       <div
                                         key={child.key}
-                                        className="grid grid-cols-12 items-center py-1"
+                                        className="dre-row grid grid-cols-12 items-center py-1"
                                         style={{ paddingLeft: 16 }}
                                       >
                                         <div className="col-span-7 flex items-center gap-2 min-w-0">
@@ -486,7 +486,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
 
             {/* Total */}
             <div
-              className="grid grid-cols-12 py-4 mt-3 items-baseline"
+              className="dre-row grid grid-cols-12 py-4 mt-3 items-baseline"
               style={{
                 borderTop: '3px double var(--text-2)',
                 borderBottom: '0.5px solid var(--border)',
@@ -548,7 +548,7 @@ export default function DREPage({ refreshKey = 0 }: Props) {
 function Subtotal({ label, value, base }: { label: string; value: number; base: number }) {
   return (
     <div
-      className="grid grid-cols-12 py-2 mt-2 items-baseline"
+      className="dre-row grid grid-cols-12 py-2 mt-2 items-baseline"
       style={{
         borderTop: '0.5px solid var(--border-lt)',
         borderBottom: '0.5px solid var(--border-lt)',
