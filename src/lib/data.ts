@@ -39,21 +39,9 @@ interface QueryState<T> {
  * - GC automático após 5min sem uso
  */
 function useAsync<T>(name: string, fn: () => Promise<T>, deps: any[]): QueryState<T> {
-  // Timeout failsafe: query nunca demora mais de 8s
-  const fnWithTimeout = () => {
-    let timedOut = false;
-    const timeoutP = new Promise<never>((_, reject) => {
-      setTimeout(() => {
-        timedOut = true;
-        reject(new Error('Timeout: query demorou mais de 8s'));
-      }, 8000);
-    });
-    return Promise.race([fn(), timeoutP]).then((r) => (timedOut ? (null as any) : (r as T)));
-  };
-
   const q = useQuery<T, Error>({
     queryKey: ['async', name, ...deps],
-    queryFn: fnWithTimeout,
+    queryFn: fn,
   });
 
   const refresh = useCallback(async () => {

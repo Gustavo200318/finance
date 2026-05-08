@@ -70,17 +70,24 @@ export default function DashboardPage({ userName, onNewTransaction, onNavigate, 
   const stmt = useMonthlyStatement(year, month);
   const stmtPrev = useMonthlyStatement(prev.year, prev.month);
   const monthTx = useMonthTransactions(year, month);
-  const recent = useTransactions({ limit: 5 });
   const debts = useDebts();
   const goals = useGoals();
   const insights = useInsights();
+
+  // "Recentes" derivam de monthTx — evita uma round-trip a Supabase
+  const recent = useMemo(
+    () => ({
+      data: (monthTx.data ?? []).slice(0, 5),
+      loading: monthTx.loading,
+    }),
+    [monthTx.data, monthTx.loading]
+  );
 
   // refetch on save
   useEffect(() => {
     if (!refreshKey) return;
     stmt.refresh();
     monthTx.refresh();
-    recent.refresh();
     debts.refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshKey]);

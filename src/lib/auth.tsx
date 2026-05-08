@@ -59,13 +59,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let active = true;
-    // Failsafe: never hang the UI in 'loading' for more than 2s
-    const failsafe = window.setTimeout(() => {
-      if (active) {
-        console.warn('[auth] timeout 2s — liberando UI');
-        setLoading(false);
-      }
-    }, 2000);
 
     (async () => {
       try {
@@ -74,16 +67,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!active) return;
         setSession(data?.session ?? null);
         if (data?.session?.user) {
-          const p = await ensureProfile(data.session.user);
-          if (active) setProfile(p);
+          // Não bloqueia o loading no fetch do profile — solta a UI assim que tem sessão
+          ensureProfile(data.session.user).then((p) => {
+            if (active) setProfile(p);
+          });
         }
       } catch (e: any) {
         console.warn('[auth] getSession threw', e?.message ?? e);
       } finally {
-        if (active) {
-          window.clearTimeout(failsafe);
-          setLoading(false);
-        }
+        if (active) setLoading(false);
       }
     })();
 
@@ -103,7 +95,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       active = false;
-      window.clearTimeout(failsafe);
       subscription.subscription.unsubscribe();
     };
   }, []);

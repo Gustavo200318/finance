@@ -4,17 +4,13 @@ import { QueryClient } from '@tanstack/react-query';
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // 30s: dado é considerado fresco. Não revalida ao focar a janela neste período.
-      staleTime: 30_000,
-      // 5 min: tempo que o cache é mantido em memória após nenhum componente usar.
-      gcTime: 5 * 60_000,
-      // Não refetch ao focar a janela (evita rajada de queries)
+      // 5 min: dado é considerado fresco — corta refetch desnecessário ao trocar de página
+      staleTime: 5 * 60_000,
+      // 10 min: cache em memória após nenhum componente usar
+      gcTime: 10 * 60_000,
       refetchOnWindowFocus: false,
-      // Mas refetch ao reconectar
       refetchOnReconnect: true,
-      // Tenta 1 vez antes de desistir
       retry: 1,
-      // Timeout efetivo via AbortController interno do supabase-js
     },
   },
 });
