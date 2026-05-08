@@ -137,6 +137,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .filter((k) => k.startsWith('sb-') || k.includes('supabase'))
         .forEach((k) => localStorage.removeItem(k));
     } catch {}
+    // Hard reload garante UI limpa e cache do TanStack Query zerado
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
   }, []);
 
   const value = useMemo<AuthState>(

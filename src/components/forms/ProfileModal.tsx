@@ -114,7 +114,9 @@ export default function ProfileModal({ open, onClose }: Props) {
           onCancel={onClose}
           errorMsg={errorMsg}
           destructive={{
-            label: signingOut ? 'Saindo...' : 'Sair da conta',
+            label: 'Sair da conta',
+            loadingLabel: 'Saindo...',
+            icon: 'logout',
             onClick: handleSignOut,
             loading: signingOut,
           }}

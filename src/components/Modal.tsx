@@ -90,7 +90,7 @@ interface FormFooterProps {
   saveLabel?: string;
   onCancel: () => void;
   errorMsg?: string | null;
-  destructive?: { label: string; onClick: () => void; loading?: boolean };
+  destructive?: { label: string; onClick: () => void; loading?: boolean; loadingLabel?: string; icon?: string };
 }
 
 export function FormFooter({ saving, saveLabel = 'Salvar', onCancel, errorMsg, destructive }: FormFooterProps) {
@@ -116,8 +116,8 @@ export function FormFooter({ saving, saveLabel = 'Salvar', onCancel, errorMsg, d
             disabled={destructive.loading || saving}
             className="text-[12px] text-red hover:text-red px-3 py-2 rounded-pill mr-auto disabled:opacity-60 inline-flex items-center gap-1.5"
           >
-            <Ti name="trash" size={12} />
-            {destructive.loading ? 'Excluindo...' : destructive.label}
+            <Ti name={destructive.icon ?? 'trash'} size={12} />
+            {destructive.loading ? (destructive.loadingLabel ?? 'Excluindo...') : destructive.label}
           </button>
         )}
         <button
